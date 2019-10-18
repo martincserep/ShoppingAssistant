@@ -16,7 +16,7 @@
           </ion-col>
         </ion-card-content>
         <div class='ion-margin-vertical ion-text-right'>
-          <ion-button fill='outline' color='danger'>Clear</ion-button>
+          <ion-button (click)="clearList()" fill='outline' color='danger'>Clear</ion-button>
           <ion-button (click)="addItem()" fill='solid' color='success'>Add item</ion-button>
         </div>
         </ion-card>
@@ -40,7 +40,7 @@
           </ion-item-sliding>
       </ion-col>
   </ion-row>
-  <ion-row class="ion-margin">
+  <ion-row class="ion-margin ion-align-self-baseline">
       <ion-col size-md="6" offset-md="3">
         <ion-row>
           <ion-col >

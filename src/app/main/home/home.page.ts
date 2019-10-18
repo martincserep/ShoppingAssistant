@@ -4,6 +4,7 @@ import { CartService } from './cart.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Item } from '../shopping-list/item.model';
+import { CommonService } from '../common.service';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +34,13 @@ export class HomePage implements OnInit, OnDestroy {
     this.totalPrice = this.cartService.getPrice();
   }
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private commonService: CommonService) {}
+
+
+  clearList() {
+    this.commonService.clearList('home');
+    this.totalPrice = 0;
+  }
 
   ngOnInit() {
     this.list = this.cartService.getCartList();

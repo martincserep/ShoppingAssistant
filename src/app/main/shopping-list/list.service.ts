@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Item } from './item.model';
 import { AlertController } from '@ionic/angular';
 import { ShoppingService } from './shopping.service';
+import { CommonService } from '../common.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { ShoppingService } from './shopping.service';
 export class ListService {
   constructor(
     private alertCtrl: AlertController,
-    private shoppingService: ShoppingService
+    private shoppingService: ShoppingService,
+    private commonSerivce: CommonService
     ) { }
 
   async addItemToList() {
@@ -46,28 +48,5 @@ export class ListService {
     });
     (await alert).present();
   }
-
-  async clerList() {
-    const alert = this.alertCtrl.create({
-      header: 'Do you really want to clear the shopping list?',
-      buttons: [
-        {
-          text: 'Nope👎',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Yes👍',
-          handler: data => {
-            this.shoppingService.clearList();
-          }
-        }
-      ]
-    });
-    (await alert).present();
-  }
-
-
 
 }

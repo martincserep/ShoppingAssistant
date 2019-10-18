@@ -41,5 +41,12 @@ export class CartService {
     return this.cartListUpdated.asObservable();
   }
 
+  clearList() {
+    this.cartList = [];
+    this.cartListUpdated.next(this.cartList);
+    this.getPrice();
+    this.totalPriceUpdated.next(this.totalPrice);
+  }
+
   constructor() { }
 }

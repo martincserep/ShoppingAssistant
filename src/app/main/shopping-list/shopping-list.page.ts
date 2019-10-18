@@ -4,6 +4,7 @@ import { ShoppingService } from './shopping.service';
 import { ListService } from './list.service';
 import { Subscription } from 'rxjs';
 import { AlertController } from '@ionic/angular';
+import { CommonService } from '../common.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -17,16 +18,18 @@ export class ShoppingListPage implements OnInit, OnDestroy {
 
   constructor(
     private shoppingService: ShoppingService,
-    private listSerivce: ListService) { }
+    private listSerivce: ListService,
+    private commonService: CommonService) { }
 
-  clearList() {
-    this.listSerivce.clerList();
-  }
+
 
   addItemToList() {
     this.listSerivce.addItemToList();
   }
 
+  clearList() {
+    this.commonService.clearList('shopping-list');
+  }
   ngOnInit() {
     this.list = this.shoppingService.getList();
     this.itemListSub = this.shoppingService.getListUpdateListener()
@@ -35,6 +38,10 @@ export class ShoppingListPage implements OnInit, OnDestroy {
           this.list = items;
         }
       );
+  }
+
+  deleteItem(name: string) {
+    console.log(name);
   }
 
   ngOnDestroy() {

@@ -20,11 +20,17 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-list>
-          <ion-item *ngFor='let item of list'>
+        <ion-item-sliding *ngFor='let item of list'>
+          <ion-item >
               {{ item.name }} {{ item.amount }}
           </ion-item>
-        </ion-list>
+          <ion-item-options>
+            <ion-item-option color="danger" (click)='deleteItem(item.name)'>
+              <ion-icon slot="end" name="trash"></ion-icon>
+              Delete
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
       </ion-col>
     </ion-row>
   </ion-grid>
