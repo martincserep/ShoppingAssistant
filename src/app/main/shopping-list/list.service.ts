@@ -24,6 +24,7 @@ export class ListService {
         },
         {
           name: 'amount',
+          type: 'number',
           placeholder: 'Amount'
         }
       ],
@@ -38,10 +39,15 @@ export class ListService {
         {
           text: 'Add',
           handler: data => {
-            const newName = data.itemname;
-            const newAmount = Number.parseInt(data.amount);
-            const newItem = new Item(newName, newAmount);
-            this.shoppingService.addItem(newItem);
+            const newName: string = data.itemname;
+            const newAmount: number = data.amount;
+            if (newName.length <= 0 || newAmount <= 0) {
+              this.commonSerivce.invalidInput();
+              return;
+            } else {
+              const newItem = new Item(newName, newAmount);
+              this.shoppingService.addItem(newItem);
+            }
           }
         }
       ]

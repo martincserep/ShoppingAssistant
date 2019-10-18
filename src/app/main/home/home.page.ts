@@ -29,9 +29,15 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   addItem() {
-    this.cartService.addItem(new CartItem(this.enteredName, this.enteredPrice));
-    this.clearInputFields();
-    this.totalPrice = this.cartService.getPrice();
+    if ( this.enteredName.length <= 0 || this.enteredPrice <= 0 ) {
+      this.commonService.invalidInput();
+      this.clearInputFields();
+      return;
+    } else {
+      this.cartService.addItem(new CartItem(this.enteredName, this.enteredPrice));
+      this.clearInputFields();
+      this.totalPrice = this.cartService.getPrice();
+    }
   }
 
   constructor(private cartService: CartService, private commonService: CommonService) {}

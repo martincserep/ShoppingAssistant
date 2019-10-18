@@ -16,6 +16,22 @@ export class CommonService {
 
    }
 
+   async invalidInput() {
+    const alert = this.alertCtrl.create({
+      header: 'Hey! Please enter valid fasztudja',
+      buttons: [
+        {
+          text: 'Okay 👍',
+          handler: data => {
+            return;
+          }
+        }
+      ]
+    });
+    (await alert).present();
+  }
+
+
   async clearList(where: string) {
     let listType: string;
     if (where === 'home') {
