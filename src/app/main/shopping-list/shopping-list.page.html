@@ -1,13 +1,18 @@
 <ion-header>
   <ion-toolbar color="light">
-    <ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="clearList()" color="danger" fill=clear>
+        <ion-icon name='trash' slot='icon-only'></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center"> 
       Your Shopping List
     </ion-title>
     <ion-buttons slot="primary">
-        <ion-button>
-          <ion-icon name='add' slot='icon-only'></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ion-button (click)="addItemToList()" fill=clear color="dark">
+        <ion-icon name='add' slot='icon-only'></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -15,9 +20,17 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-list>
-
-        </ion-list>
+        <ion-item-sliding *ngFor='let item of list'>
+          <ion-item >
+              {{ item.name }} {{ item.amount }}
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="danger" (click)='deleteItem(item.name)'>
+              <ion-icon slot="end" name="trash"></ion-icon>
+              Delete
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
       </ion-col>
     </ion-row>
   </ion-grid>
