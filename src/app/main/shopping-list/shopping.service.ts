@@ -1,22 +1,44 @@
-import { Injectable } from '@angular/core';
+import { Injectable, IterableDiffers } from '@angular/core';
 import { Item } from './item.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingService {
 
-  list: Item[] = [
-    {name: 'Bread', amount: 1},
-    {name: 'Coca-Cola', amount: 2},
-    {name: 'Tomato', amount: 1},
-    {name: 'Carrot', amount: 2},
+
+  private list: Item[] = [
+    new Item('Apples', 5),
+    new Item('Tomatoes', 10),
   ];
 
-  addItem(newName: string, newAmount: number) {
-    this.list.push({name: newName, amount: newAmount});
+
+  private listUpdated = new Subject<Item[]>();
+
+  getList() {
+    return [...this.list];
+  }
+
+  addItem(item: Item) {
+    this.list.push(item);
+    this.listUpdated.next(this.list);
     console.log(this.list);
   }
 
+  deleteItem() {
+
+  }
+
+  clearList() {
+    this.list = [];
+    this.listUpdated.next(this.list);
+  }
+
+  getListUpdateListener() {
+    return this.listUpdated.asObservable();
+  }
+
   constructor() { }
+
 }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="light">
     <ion-buttons slot="start">
-      <ion-button color="danger" fill=clear>
+      <ion-button (click)="clearList()" color="danger" fill=clear>
         <ion-icon name='trash' slot='icon-only'></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -9,7 +9,7 @@
       Your Shopping List
     </ion-title>
     <ion-buttons slot="primary">
-      <ion-button (click)="presentPrompt()" fill=clear color="dark">
+      <ion-button (click)="addItemToList()" fill=clear color="dark">
         <ion-icon name='add' slot='icon-only'></ion-icon>
       </ion-button>
     </ion-buttons>

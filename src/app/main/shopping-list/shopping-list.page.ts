@@ -1,57 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Item } from './item.model';
-import { AlertController } from '@ionic/angular';
 import { ShoppingService } from './shopping.service';
+import { ListService } from './list.service';
+import { Subscription } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.page.html',
   styleUrls: ['./shopping-list.page.scss'],
 })
-export class ShoppingListPage implements OnInit {
+export class ShoppingListPage implements OnInit, OnDestroy {
+  private itemListSub: Subscription;
 
-  list: Item[] = [
-    {name: 'Bread', amount: 1},
-    {name: 'Coca-Cola', amount: 2},
-    {name: 'Tomato', amount: 1},
-    {name: 'Carrot', amount: 2},
-  ];
+  list: Item[];
 
-  constructor(private alertCtrl: AlertController, private shoppingService: ShoppingService) { }
+  constructor(
+    private shoppingService: ShoppingService,
+    private listSerivce: ListService) { }
 
-  async presentPrompt() {
-    const alert = this.alertCtrl.create({
-      header: 'What is missing from your fridge?',
-      inputs: [
-        {
-          name: 'itemname',
-          placeholder: 'Item name'
-        },
-        {
-          name: 'amount',
-          placeholder: 'Amount'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Add',
-          handler: data => {
-            const newAmount = Number.parseInt(data.amount);
-            this.shoppingService.addItem(data.itemname, newAmount);
-          }
-        }
-      ]
-    });
-    (await alert).present();
+  clearList() {
+    this.listSerivce.clerList();
   }
+
+  addItemToList() {
+    this.listSerivce.addItemToList();
+  }
+
   ngOnInit() {
+    this.list = this.shoppingService.getList();
+    this.itemListSub = this.shoppingService.getListUpdateListener()
+      .subscribe(
+        (items: Item[]) => {
+          this.list = items;
+        }
+      );
+  }
+
+  ngOnDestroy() {
+    this.itemListSub.unsubscribe();
   }
 
 }
