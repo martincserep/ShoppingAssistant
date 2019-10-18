@@ -1,31 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartItem } from './cart-item.model';
+import { CartService } from './cart.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { Item } from '../shopping-list/item.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
   enteredName = '';
   enteredPrice: number;
 
   totalPrice = 0;
 
-  list: CartItem[] = [
-    new CartItem('Bread', 250),
-    new CartItem('Coca-Cola', 250)
-  ];
+  list: CartItem[];
 
+  private cartListSub: Subscription;
 
-  getPrice() {
-    this.totalPrice = 0;
-    for (const item of this.list) {
-      this.totalPrice += item.amount;
-    }
-  }
 
   clearInputFields() {
     this.enteredName = '';
@@ -33,15 +28,25 @@ export class HomePage implements OnInit {
   }
 
   addItem() {
-    this.list.push(new CartItem(this.enteredName, this.enteredPrice));
+    this.cartService.addItem(new CartItem(this.enteredName, this.enteredPrice));
     this.clearInputFields();
-    this.getPrice();
+    this.totalPrice = this.cartService.getPrice();
   }
 
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
   ngOnInit() {
-    this.getPrice();
+    this.list = this.cartService.getCartList();
+    this.cartListSub = this.cartService.getListUpdateListener()
+      .subscribe(
+        (items: Item[]) => {
+          this.list = items;
+        }
+      );
+  }
+
+  ngOnDestroy() {
+    this.cartListSub.unsubscribe();
   }
 
 }

@@ -1,0 +1,7 @@
+{
+  "appId": "com.martincserep.shoppingsssistant",
+  "appName": "Shopping Assistant",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

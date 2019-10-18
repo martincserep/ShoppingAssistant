@@ -1,5 +1,7 @@
 {
   "name": "shoppingAssist",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
