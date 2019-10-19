@@ -44,7 +44,9 @@ export class HomePage implements OnInit, OnDestroy {
 
 
   clearList() {
-    this.commonService.clearList('home');
+    if (this.commonService.clearList('home')) {
+      this.totalPrice = 0;
+    }
   }
 
   priceToZero() {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ShoppingService } from './shopping-list/shopping.service';
 import { CartService } from './home/cart.service';
 import { AlertController } from '@ionic/angular';
+import { HomePage } from './home/home.page';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CommonService {
   constructor(
     private shoppingService: ShoppingService,
     private cartService: CartService,
-    private alertCtrl: AlertController,
+    private alertCtrl: AlertController
     ) {
 
    }
@@ -53,6 +54,7 @@ export class CommonService {
           handler: data => {
             if (where === 'home') {
               this.cartService.clearList();
+              return true;
             } else if (where === 'shopping-list') {
               this.shoppingService.clearList();
             }
