@@ -21,13 +21,36 @@ export class ShoppingService {
   }
 
   addItem(item: Item) {
-    this.list.push(item);
-    this.listUpdated.next(this.list);
-    console.log(this.list);
+    if (this.findItemInList) {
+      this.addItemInList(item);
+    } else {
+      this.list.push(item);
+      this.listUpdated.next(this.list);
+    }
   }
 
   deleteItem() {
 
+  }
+
+  findItemInList(item: Item) {
+    this.list.find(itemName => {
+      if (itemName.name === item.name) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  addItemInList(item: Item) {
+    this.list.find(itemName => {
+      if (itemName.name === item.name) {
+        const oldAmount: number = parseFloat(itemName.amount);
+        const newAmount: number = parseFloat(item.amount);
+        itemName.amount = oldAmount + newAmount;
+      }
+    });
   }
 
   clearList() {
