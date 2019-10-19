@@ -22,7 +22,7 @@ export class ShoppingService {
 
   addItem(item: Item) {
     if (this.findItemInList) {
-      this.addItemInList(item);
+      this.addItemToList(item);
     } else {
       this.list.push(item);
       this.listUpdated.next(this.list);
@@ -46,8 +46,10 @@ export class ShoppingService {
   addItemToList(item: Item) {
     this.list.find(itemName => {
       if (itemName.name === item.name) {
-        const oldAmount: number = parseFloat(itemName.amount);
-        const newAmount: number = parseFloat(item.amount);
+        console.log(itemName.amount);
+        const oldAmount: number = itemName.amount;
+        const newAmount: number = item.amount;
+        console.log(oldAmount);
         itemName.amount = oldAmount + newAmount;
       }
     });
