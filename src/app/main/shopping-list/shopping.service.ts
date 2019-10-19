@@ -43,7 +43,7 @@ export class ShoppingService {
     });
   }
 
-  addItemInList(item: Item) {
+  addItemToList(item: Item) {
     this.list.find(itemName => {
       if (itemName.name === item.name) {
         const oldAmount: number = parseFloat(itemName.amount);
