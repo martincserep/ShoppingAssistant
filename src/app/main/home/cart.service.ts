@@ -46,6 +46,7 @@ export class CartService {
     this.cartListUpdated.next(this.cartList);
     this.getPrice();
     this.totalPriceUpdated.next(this.totalPrice);
+    console.log(this.totalPrice);
   }
 
   constructor() { }

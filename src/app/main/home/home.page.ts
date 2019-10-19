@@ -17,6 +17,7 @@ export class HomePage implements OnInit, OnDestroy {
   enteredPrice: number;
 
   totalPrice = 0;
+  private priceSub: Subscription;
 
   list: CartItem[];
 
@@ -36,7 +37,6 @@ export class HomePage implements OnInit, OnDestroy {
     } else {
       this.cartService.addItem(new CartItem(this.enteredName, this.enteredPrice));
       this.clearInputFields();
-      this.totalPrice = this.cartService.getPrice();
     }
   }
 
@@ -44,9 +44,7 @@ export class HomePage implements OnInit, OnDestroy {
 
 
   clearList() {
-    if (this.commonService.clearList('home')) {
-      this.totalPrice = 0;
-    }
+    this.commonService.clearList('home');
   }
 
   priceToZero() {
@@ -60,6 +58,13 @@ export class HomePage implements OnInit, OnDestroy {
         (items: Item[]) => {
           this.list = items;
         }
+      );
+    this.totalPrice = this.cartService.getPrice();
+    this.priceSub = this.cartService.getTotalPriceUpdateListener()
+        .subscribe(
+          (price: number) => {
+            this.totalPrice = price;
+          }
       );
   }
 
