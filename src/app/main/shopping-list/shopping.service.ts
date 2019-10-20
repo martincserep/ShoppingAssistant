@@ -21,7 +21,7 @@ export class ShoppingService {
   }
 
   addItem(item: Item) {
-    if (this.findItemInList) {
+    if (this.findItemInList(item)) {
       this.addItemToList(item);
     } else {
       this.list.push(item);
@@ -33,37 +33,41 @@ export class ShoppingService {
 
   }
 
-  findItemInList(item: Item) {
-    this.list.find(itemName => {
-      if (itemName.name === item.name) {
+  findItemInList(item: Item): boolean {
+    this.list.forEach(currentItem => {
+      if (currentItem.name === item.name) {
+        console.log('Fasza');
         return true;
-      } else {
-        return false;
       }
     });
+    console.log('Nem');
+    return true;
   }
 
-  addItemToList(item: Item) {
+addItemToList(item: Item) {
     this.list.find(itemName => {
       if (itemName.name === item.name) {
         console.log(itemName.amount);
-        const oldAmount: number = itemName.amount;
-        const newAmount: number = item.amount;
+        const oldAmount: number = parseFloat(itemName.amount);
+        const newAmount: number = parseFloat(item.amount);
         console.log(oldAmount);
         itemName.amount = oldAmount + newAmount;
+      } else {
+        // this.list.push(item);
+        // this.listUpdated.next(this.list);
       }
     });
   }
 
-  clearList() {
+clearList() {
     this.list = [];
     this.listUpdated.next(this.list);
   }
 
-  getListUpdateListener() {
+getListUpdateListener() {
     return this.listUpdated.asObservable();
   }
 
-  constructor() { }
+constructor() { }
 
 }
