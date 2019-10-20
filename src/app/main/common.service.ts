@@ -32,7 +32,6 @@ export class CommonService {
     (await alert).present();
   }
 
-
   async clearList(where: string) {
     let listType: string;
     if (where === 'home') {
@@ -54,7 +53,6 @@ export class CommonService {
           handler: data => {
             if (where === 'home') {
               this.cartService.clearList();
-              return true;
             } else if (where === 'shopping-list') {
               this.shoppingService.clearList();
             }
