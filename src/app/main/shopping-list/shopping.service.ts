@@ -34,14 +34,15 @@ export class ShoppingService {
   }
 
   findItemInList(item: Item): boolean {
+    let returnValue = false;
     this.list.forEach(currentItem => {
       if (currentItem.name === item.name) {
         console.log('Fasza');
-        return true;
+        returnValue = true;
       }
     });
     console.log('Nem');
-    return true;
+    return returnValue;
   }
 
 addItemToList(item: Item) {
