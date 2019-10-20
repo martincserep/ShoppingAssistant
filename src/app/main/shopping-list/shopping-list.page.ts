@@ -40,8 +40,8 @@ export class ShoppingListPage implements OnInit, OnDestroy {
       );
   }
 
-  deleteItem(name: string) {
-    console.log(name);
+  deleteItem(item: Item) {
+    this.shoppingService.deleteItem(item);
   }
 
   ngOnDestroy() {

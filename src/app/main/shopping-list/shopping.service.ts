@@ -29,8 +29,10 @@ export class ShoppingService {
     }
   }
 
-  deleteItem() {
-
+  deleteItem(deletedItem: Item) {
+    this.list.filter(item => item !== deletedItem);
+    console.log(this.list);
+    this.listUpdated.next(this.list);
   }
 
   findItemInList(item: Item): boolean {
