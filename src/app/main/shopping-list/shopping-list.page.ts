@@ -40,6 +40,10 @@ export class ShoppingListPage implements OnInit, OnDestroy {
       );
   }
 
+  editItem(item: Item) {
+    this.commonService.editItem(item);
+  }
+
   deleteItem(item: Item) {
     this.shoppingService.deleteItem(item);
   }

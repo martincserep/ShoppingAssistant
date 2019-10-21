@@ -22,9 +22,13 @@
       <ion-col>
         <ion-item-sliding *ngFor='let item of list'>
           <ion-item >
-              {{ item.name }} {{ item.amount }}
+            {{ item.name }} {{ item.amount }}
           </ion-item>
           <ion-item-options>
+            <ion-item-option color="primary" (click)='editItem(item)'>
+              <ion-icon slot="primary" name="trash"></ion-icon>
+              Modify
+            </ion-item-option>
             <ion-item-option color="danger" (click)='deleteItem(item)'>
               <ion-icon slot="end" name="trash"></ion-icon>
               Delete

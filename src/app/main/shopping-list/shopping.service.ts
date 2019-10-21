@@ -29,6 +29,15 @@ export class ShoppingService {
     }
   }
 
+  editItem(item: Item, newAmount: number) {
+    this.list.find(oldItem => {
+      if (oldItem === item) {
+        oldItem.amount = parseFloat(newAmount);
+      }
+    });
+  }
+
+
   deleteItem(deletedItem: Item) {
     this.list.filter(item => item !== deletedItem);
     console.log(this.list);
@@ -39,21 +48,17 @@ export class ShoppingService {
     let returnValue = false;
     this.list.forEach(currentItem => {
       if (currentItem.name === item.name) {
-        console.log('Fasza');
         returnValue = true;
       }
     });
-    console.log('Nem');
     return returnValue;
   }
 
 addItemToList(item: Item) {
     this.list.find(itemName => {
       if (itemName.name === item.name) {
-        console.log(itemName.amount);
         const oldAmount: number = parseFloat(itemName.amount);
         const newAmount: number = parseFloat(item.amount);
-        console.log(oldAmount);
         itemName.amount = oldAmount + newAmount;
       } else {
         // this.list.push(item);

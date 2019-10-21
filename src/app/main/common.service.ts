@@ -3,6 +3,7 @@ import { ShoppingService } from './shopping-list/shopping.service';
 import { CartService } from './home/cart.service';
 import { AlertController } from '@ionic/angular';
 import { HomePage } from './home/home.page';
+import { Item } from './shopping-list/item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,41 @@ export class CommonService {
     ) {
 
    }
+
+   async editItem(item: Item) {
+    const alert = this.alertCtrl.create({
+      header: 'Enter your new amount of ' + item.name.toLowerCase() + '!',
+      inputs: [
+        {
+          name: 'amount',
+          type: 'number',
+          placeholder: 'Amount'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Modify',
+          handler: data => {
+            const newAmount: number = data.amount;
+            if (newAmount <= 0) {
+              this.invalidInput();
+              return;
+            } else {
+              this.shoppingService.editItem(item, newAmount);
+            }
+          }
+        }
+      ]
+    });
+    (await alert).present();
+  }
 
    async invalidInput() {
     const alert = this.alertCtrl.create({
