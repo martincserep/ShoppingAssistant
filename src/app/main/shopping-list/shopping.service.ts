@@ -29,35 +29,64 @@ export class ShoppingService {
     }
   }
 
-  deleteItem() {
+  editItem(item: Item, newAmount: number) {
+    this.list.forEach(oldItem => {
+      if (oldItem === item) {
+        const amount: string = newAmount.toString();
+        oldItem.amount = parseFloat(amount);
+      }
+    });
+    // this.list.find(oldItem => {
+    //   if (oldItem === item) {
+    //     const amount: string = newAmount.toString();
+    //     oldItem.amount = parseFloat(amount);
+    //     return;
+    //   }
+    // });
+  }
 
+
+  deleteItem(deletedItem: Item) {
+    this.list.filter(item => item !== deletedItem);
+    console.log(this.list);
+    this.listUpdated.next(this.list);
   }
 
   findItemInList(item: Item): boolean {
     let returnValue = false;
     this.list.forEach(currentItem => {
       if (currentItem.name === item.name) {
-        console.log('Fasza');
         returnValue = true;
       }
     });
-    console.log('Nem');
     return returnValue;
   }
 
 addItemToList(item: Item) {
-    this.list.find(itemName => {
-      if (itemName.name === item.name) {
-        console.log(itemName.amount);
-        const oldAmount: number = parseFloat(itemName.amount);
-        const newAmount: number = parseFloat(item.amount);
-        console.log(oldAmount);
+  this.list.forEach(itemName => {
+    if (itemName.name === item.name) {
+        const oldAmountString: string = itemName.amount.toString();
+        const newAmountString: string = item.amount.toString();
+        const oldAmount: number = parseFloat(oldAmountString);
+        const newAmount: number = parseFloat(newAmountString);
         itemName.amount = oldAmount + newAmount;
       } else {
         // this.list.push(item);
         // this.listUpdated.next(this.list);
       }
-    });
+  });
+    // this.list.find(itemName => {
+    //   if (itemName.name === item.name) {
+    //     const oldAmountString: string = itemName.amount.toString();
+    //     const newAmountString: string = item.amount.toString();
+    //     const oldAmount: number = parseFloat(oldAmountString);
+    //     const newAmount: number = parseFloat(newAmountString);
+    //     itemName.amount = oldAmount + newAmount;
+    //   } else {
+        // this.list.push(item);
+        // this.listUpdated.next(this.list);
+      // }
+    // });
   }
 
 clearList() {

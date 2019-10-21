@@ -20,17 +20,39 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-item-sliding *ngFor='let item of list'>
+          <ion-item-sliding *ngFor='let item of list'>
+            <ion-item-options side="start">
+                <ion-item-option color="tertiary" expandable (click)='editItem(item)'>
+                  <ion-icon slot="end" name="create"></ion-icon>
+                  Modify
+                </ion-item-option>
+            </ion-item-options>
+            <ion-item>
+              <ion-label>{{ item.name }} </ion-label>
+              <ion-label class="ion-text-end">{{ item.amount }}</ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option color="danger" expandable (click)='deleteItem(item)'>
+                <ion-icon slot="end" name="trash"></ion-icon>
+                Delete
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        <!-- <ion-item-sliding *ngFor='let item of list'>
           <ion-item >
-              {{ item.name }} {{ item.amount }}
+            {{ item.name }} {{ item.amount }}
           </ion-item>
           <ion-item-options>
-            <ion-item-option color="danger" (click)='deleteItem(item.name)'>
+            <ion-item-option color="primary" (click)='editItem(item)'>
+              <ion-icon slot="start" name="trash"></ion-icon>
+              Modify
+            </ion-item-option>
+            <ion-item-option color="danger" (click)='deleteItem(item)'>
               <ion-icon slot="end" name="trash"></ion-icon>
               Delete
             </ion-item-option>
           </ion-item-options>
-        </ion-item-sliding>
+        </ion-item-sliding> -->
       </ion-col>
     </ion-row>
   </ion-grid>
