@@ -1,6 +1,7 @@
-import { Injectable, IterableDiffers } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Item } from './item.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,7 @@ import { Subject } from 'rxjs';
 export class ShoppingService {
 
 
-  private list: Item[] = [
-    new Item('Apples', 5),
-    new Item('Tomatoes', 10),
-  ];
+  private list: Item[] = [];
 
 
   private listUpdated = new Subject<Item[]>();
@@ -20,10 +18,18 @@ export class ShoppingService {
     return [...this.list];
   }
 
-  addItem(item: Item) {
+  addItem(newItem: Item) {
+    const item = new Item(
+      newItem.name,
+      newItem.amount
+    );
     if (this.findItemInList(item)) {
       this.addItemToList(item);
     } else {
+      this.http.post<{item: Item}>('https://shoppingassist-385d6.firebaseio.com/shopping_list.json',
+      {
+        ...item
+      });
       this.list.push(item);
       this.listUpdated.next(this.list);
     }
@@ -98,6 +104,6 @@ getListUpdateListener() {
     return this.listUpdated.asObservable();
   }
 
-constructor() { }
+constructor(private http: HttpClient) { }
 
 }
