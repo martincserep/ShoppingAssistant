@@ -16,6 +16,8 @@
   
   ```
   
+  ### First start
+  
 ## Technologies what I used
 
 * Angular (The frontend framework)
