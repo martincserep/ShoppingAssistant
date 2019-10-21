@@ -30,11 +30,19 @@ export class ShoppingService {
   }
 
   editItem(item: Item, newAmount: number) {
-    this.list.find(oldItem => {
+    this.list.forEach(oldItem => {
       if (oldItem === item) {
-        oldItem.amount = parseFloat(newAmount);
+        const amount: string = newAmount.toString();
+        oldItem.amount = parseFloat(amount);
       }
     });
+    // this.list.find(oldItem => {
+    //   if (oldItem === item) {
+    //     const amount: string = newAmount.toString();
+    //     oldItem.amount = parseFloat(amount);
+    //     return;
+    //   }
+    // });
   }
 
 
@@ -55,16 +63,30 @@ export class ShoppingService {
   }
 
 addItemToList(item: Item) {
-    this.list.find(itemName => {
-      if (itemName.name === item.name) {
-        const oldAmount: number = parseFloat(itemName.amount);
-        const newAmount: number = parseFloat(item.amount);
+  this.list.forEach(itemName => {
+    if (itemName.name === item.name) {
+        const oldAmountString: string = itemName.amount.toString();
+        const newAmountString: string = item.amount.toString();
+        const oldAmount: number = parseFloat(oldAmountString);
+        const newAmount: number = parseFloat(newAmountString);
         itemName.amount = oldAmount + newAmount;
       } else {
         // this.list.push(item);
         // this.listUpdated.next(this.list);
       }
-    });
+  });
+    // this.list.find(itemName => {
+    //   if (itemName.name === item.name) {
+    //     const oldAmountString: string = itemName.amount.toString();
+    //     const newAmountString: string = item.amount.toString();
+    //     const oldAmount: number = parseFloat(oldAmountString);
+    //     const newAmount: number = parseFloat(newAmountString);
+    //     itemName.amount = oldAmount + newAmount;
+    //   } else {
+        // this.list.push(item);
+        // this.listUpdated.next(this.list);
+      // }
+    // });
   }
 
 clearList() {
