@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, of, Subject } from 'rxjs';
-import { take, map, tap, delay, switchMap } from 'rxjs/operators';
+// import { take, map, tap, delay, switchMap } from 'rxjs/operators';
 
 import { Item } from './item.model';
-import { AuthService } from '../../auth/auth.service';
-import { ItemData } from './itemData.model';
-import { constructor } from 'stream';
+// import { AuthService } from '../../auth/auth.service';
+// import { ItemData } from './itemData.model';
+// import { constructor } from 'stream';
 
 
 @Injectable({
@@ -126,10 +126,15 @@ editItem(item: Item, newAmount: number) {
 
 
   deleteItem(deletedItem: Item) {
-    this.list.filter(item => item !== deletedItem);
-    console.log(this.list);
-    this.listUpdated.next(this.list);
+    // this.list.forEach(itemName => {
+      // if (deletedItem.name === itemName.name) {
+        const index = this.list.indexOf(deletedItem);
+        this.list.splice(index, 1);
+        this.listUpdated.next(this.list);
+      // }
+    // });
   }
+
 
   findItemInList(item: Item): boolean {
     let returnValue = false;
