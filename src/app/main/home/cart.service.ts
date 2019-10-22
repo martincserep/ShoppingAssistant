@@ -52,6 +52,8 @@ export class CartService {
         const index = this.cartList.indexOf(deletedItem);
         this.cartList.splice(index, 1);
         this.cartListUpdated.next(this.cartList);
+        this.getPrice();
+        this.totalPriceUpdated.next(this.totalPrice);
   }
 
   constructor() { }
