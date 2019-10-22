@@ -1,5 +1,5 @@
 # ***Shopping Assistant***
-> This is a shopping list and shopping cart counter app.
+> This is a shopping list and shopping cart price counter app.
 
 
 ## Installation
