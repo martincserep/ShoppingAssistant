@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { GoogleLoginComponent } from '../google-login/google-login.component';
 
 @Component({
   selector: 'app-auth',
@@ -8,12 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthPage implements OnInit {
 
-  constructor(private http: HttpClient) { }
-
-
-  onLogin() {
-    this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=AIzaSyDeES4JZjs_NOwuhzVFh_h0ZmmQc4p1PC0')
-  }
+  constructor() { }
 
   ngOnInit() {
   }

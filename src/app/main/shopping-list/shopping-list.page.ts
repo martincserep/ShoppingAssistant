@@ -21,8 +21,6 @@ export class ShoppingListPage implements OnInit, OnDestroy {
     private listSerivce: ListService,
     private commonService: CommonService) { }
 
-
-
   addItemToList() {
     this.listSerivce.addItemToList();
   }
@@ -51,5 +49,4 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.itemListSub.unsubscribe();
   }
-
 }

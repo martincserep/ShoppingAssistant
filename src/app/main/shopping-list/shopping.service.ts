@@ -42,13 +42,6 @@ export class ShoppingService {
         oldItem.amount = parseFloat(amount);
       }
     });
-    // this.list.find(oldItem => {
-    //   if (oldItem === item) {
-    //     const amount: string = newAmount.toString();
-    //     oldItem.amount = parseFloat(amount);
-    //     return;
-    //   }
-    // });
   }
 
 
@@ -76,24 +69,9 @@ addItemToList(item: Item) {
         const oldAmount: number = parseFloat(oldAmountString);
         const newAmount: number = parseFloat(newAmountString);
         itemName.amount = oldAmount + newAmount;
-      } else {
-        // this.list.push(item);
-        // this.listUpdated.next(this.list);
       }
   });
-    // this.list.find(itemName => {
-    //   if (itemName.name === item.name) {
-    //     const oldAmountString: string = itemName.amount.toString();
-    //     const newAmountString: string = item.amount.toString();
-    //     const oldAmount: number = parseFloat(oldAmountString);
-    //     const newAmount: number = parseFloat(newAmountString);
-    //     itemName.amount = oldAmount + newAmount;
-    //   } else {
-        // this.list.push(item);
-        // this.listUpdated.next(this.list);
-      // }
-    // });
-  }
+}
 
 clearList() {
     this.list = [];
