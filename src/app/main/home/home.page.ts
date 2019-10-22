@@ -31,6 +31,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   deleteItem(item: Item) {
     this.cartService.deleteItem(item);
+    this.totalPrice =  this.cartService.getPrice();
   }
 
   addItem() {
