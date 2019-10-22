@@ -29,6 +29,8 @@
 
 * 1.0
     * First build
+* 0.3
+  * Added user authentication
 * 0.2
     * Connected to Database
 * 0.1
