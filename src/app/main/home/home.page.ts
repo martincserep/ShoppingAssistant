@@ -29,6 +29,10 @@ export class HomePage implements OnInit, OnDestroy {
     this.enteredPrice = null;
   }
 
+  deleteItem(item: Item) {
+    this.cartService.deleteItem(item);
+  }
+
   addItem() {
     if ( this.enteredName.length <= 0 || this.enteredPrice <= 0 ) {
       this.commonService.invalidInput();
