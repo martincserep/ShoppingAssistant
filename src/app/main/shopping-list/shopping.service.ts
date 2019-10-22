@@ -1,6 +1,7 @@
-import { Injectable, IterableDiffers } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Item } from './item.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,7 @@ import { Subject } from 'rxjs';
 export class ShoppingService {
 
 
-  private list: Item[] = [
-    new Item('Apples', 5),
-    new Item('Tomatoes', 10),
-  ];
+  private list: Item[] = [];
 
 
   private listUpdated = new Subject<Item[]>();
@@ -20,10 +18,18 @@ export class ShoppingService {
     return [...this.list];
   }
 
-  addItem(item: Item) {
+  addItem(newItem: Item) {
+    const item = new Item(
+      newItem.name,
+      newItem.amount
+    );
     if (this.findItemInList(item)) {
       this.addItemToList(item);
     } else {
+      this.http.post<{item: Item}>('https://shoppingassist-385d6.firebaseio.com/shopping_list.json',
+      {
+        ...item
+      });
       this.list.push(item);
       this.listUpdated.next(this.list);
     }
@@ -36,13 +42,6 @@ export class ShoppingService {
         oldItem.amount = parseFloat(amount);
       }
     });
-    // this.list.find(oldItem => {
-    //   if (oldItem === item) {
-    //     const amount: string = newAmount.toString();
-    //     oldItem.amount = parseFloat(amount);
-    //     return;
-    //   }
-    // });
   }
 
 
@@ -70,24 +69,9 @@ addItemToList(item: Item) {
         const oldAmount: number = parseFloat(oldAmountString);
         const newAmount: number = parseFloat(newAmountString);
         itemName.amount = oldAmount + newAmount;
-      } else {
-        // this.list.push(item);
-        // this.listUpdated.next(this.list);
       }
   });
-    // this.list.find(itemName => {
-    //   if (itemName.name === item.name) {
-    //     const oldAmountString: string = itemName.amount.toString();
-    //     const newAmountString: string = item.amount.toString();
-    //     const oldAmount: number = parseFloat(oldAmountString);
-    //     const newAmount: number = parseFloat(newAmountString);
-    //     itemName.amount = oldAmount + newAmount;
-    //   } else {
-        // this.list.push(item);
-        // this.listUpdated.next(this.list);
-      // }
-    // });
-  }
+}
 
 clearList() {
     this.list = [];
@@ -98,6 +82,6 @@ getListUpdateListener() {
     return this.listUpdated.asObservable();
   }
 
-constructor() { }
+constructor(private http: HttpClient) { }
 
 }
