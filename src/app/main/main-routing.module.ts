@@ -27,7 +27,6 @@ const routes: Routes = [
                     loadChildren: './shopping-list/shopping-list.module#ShoppingListPageModule'
                 }
             ]
-
             },
             {
                 path: '',
