@@ -3,7 +3,7 @@ import { Item } from './item.model';
 import { ShoppingService } from './shopping.service';
 import { ListService } from './list.service';
 import { Subscription } from 'rxjs';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonItemSliding } from '@ionic/angular';
 import { CommonService } from '../common.service';
 
 @Component({
@@ -15,6 +15,9 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   private itemListSub: Subscription;
 
   list: Item[];
+
+  isLoading = false;
+  router: any;
 
   constructor(
     private shoppingService: ShoppingService,
@@ -49,4 +52,30 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.itemListSub.unsubscribe();
   }
+
+
+  // ngOnInit() {
+  //   this.itemListSub = this.shoppingService.list.subscribe(list => {
+  //     this.list = list;
+  //   });
+  // }
+
+  // ionViewWillEnter() {
+  //   this.isLoading = true;
+  //   this.shoppingService.fetchItems().subscribe(() => {
+  //     this.isLoading = false;
+  //   });
+  // }
+
+  // onEdit(offerId: string, slidingItem: IonItemSliding) {
+  //   slidingItem.close();
+  //   this.router.navigate(['/', 'places', 'tabs', 'offers', 'edit', offerId]);
+  //   console.log('Editing item', offerId);
+  // }
+
+  // ngOnDestroy() {
+  //   if (this.itemListSub) {
+  //     this.itemListSub.unsubscribe();
+  //   }
+  // }
 }
