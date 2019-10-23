@@ -1,3 +1,3 @@
 export class Item {
-    constructor(public name: string, public amount: number) {}
+    constructor(public userid: string, public name: string, public amount: number) {}
   }
