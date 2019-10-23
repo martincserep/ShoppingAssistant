@@ -34,7 +34,6 @@ export class ShoppingService {
       newItem.name,
       newItem.amount
     );
-    console.log(item);
     if (this.findItemInList(item)) {
       this.addItemToList(item);
     } else {
