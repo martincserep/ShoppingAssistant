@@ -4,6 +4,8 @@ import { BehaviorSubject, of, Subject } from 'rxjs';
 // import { take, map, tap, delay, switchMap } from 'rxjs/operators';
 
 import { Item } from './item.model';
+import { userInfo } from 'os';
+import { User } from '../../auth/user.model';
 // import { AuthService } from '../../auth/auth.service';
 // import { ItemData } from './itemData.model';
 // import { constructor } from 'stream';
@@ -13,87 +15,6 @@ import { Item } from './item.model';
   providedIn: 'root'
 })
 export class ShoppingService {
-  // list: any;
-
-//   constructor(private authService: AuthService, private http: HttpClient) {}
-
-//   private _list = new BehaviorSubject<Item[]>([]);
-
-
-
-//   get list() {
-//     return this._list.asObservable();
-//   }
-
-// addItem(
-//     name: string,
-//     amount: number,
-//   ) {
-//     let fetchedUserId: string;
-//     let newItem: Item;
-//     return this.authService.userId.pipe(
-//       take(1),
-//       switchMap(userId => {
-//         fetchedUserId = userId;
-//         return this.authService.token;
-//       }),
-//       take(1),
-//       switchMap(token => {
-//         if (!fetchedUserId) {
-//           throw new Error('No user found!');
-//         }
-//         newItem = new Item(
-//           name,
-//           amount,
-//           fetchedUserId,
-//         );
-//         return this.http.post<{ name: string }>(
-//           `https://shoppingassist-385d6.firebaseio.com/shipping-list.json?auth=${token}`,
-//           {
-//             ...newItem,
-//             id: null
-//           }
-//         );
-//       }),
-//       switchMap(resData => {
-//         return this.list;
-//       }),
-//       take(1),
-//       tap(items => {
-//         this._list.next(items.concat(newItem));
-//       })
-//     );
-//   }
-
-//   fetchItems() {
-//     return this.authService.token.pipe(
-//       take(1),
-//       switchMap(token => {
-//         return this.http.get<{ [key: string]: ItemData }>(
-//           `https://shoppingassist-385d6.firebaseio.com/shipping-list.json?auth=${token}`
-//         );
-//       }),
-//       map(resData => {
-//         const items = [];
-//         for (const key in resData) {
-//           if (resData.hasOwnProperty(key)) {
-//             items.push(
-//               new Item(
-//                 resData[key].name,
-//                 resData[key].amount,
-//                 resData[key].userid,
-//               )
-//             );
-//           }
-//         }
-//         return items;
-//         // return [];
-//       }),
-//       tap(items => {
-//         this._list.next(items);
-//       })
-//     );
-//   }
 
   private list: Item[] = [];
   private listUpdated = new Subject<Item[]>();
@@ -102,11 +23,18 @@ export class ShoppingService {
     return [...this.list];
   }
 
+  getUser() {
+    const user = JSON.parse(localStorage.getItem('_cap_authData'));
+    return user.userId;
+  }
+
   addItem(newItem: Item) {
     const item = new Item(
+      this.getUser(),
       newItem.name,
       newItem.amount
     );
+    console.log(item);
     if (this.findItemInList(item)) {
       this.addItemToList(item);
     } else {

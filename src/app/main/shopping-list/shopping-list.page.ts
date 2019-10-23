@@ -32,6 +32,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
     this.commonService.clearList('shopping-list');
   }
   ngOnInit() {
+    this.shoppingService.getUser();
     this.list = this.shoppingService.getList();
     this.itemListSub = this.shoppingService.getListUpdateListener()
       .subscribe(
@@ -53,29 +54,4 @@ export class ShoppingListPage implements OnInit, OnDestroy {
     this.itemListSub.unsubscribe();
   }
 
-
-  // ngOnInit() {
-  //   this.itemListSub = this.shoppingService.list.subscribe(list => {
-  //     this.list = list;
-  //   });
-  // }
-
-  // ionViewWillEnter() {
-  //   this.isLoading = true;
-  //   this.shoppingService.fetchItems().subscribe(() => {
-  //     this.isLoading = false;
-  //   });
-  // }
-
-  // onEdit(offerId: string, slidingItem: IonItemSliding) {
-  //   slidingItem.close();
-  //   this.router.navigate(['/', 'places', 'tabs', 'offers', 'edit', offerId]);
-  //   console.log('Editing item', offerId);
-  // }
-
-  // ngOnDestroy() {
-  //   if (this.itemListSub) {
-  //     this.itemListSub.unsubscribe();
-  //   }
-  // }
 }
