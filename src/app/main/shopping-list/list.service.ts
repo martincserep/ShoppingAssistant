@@ -45,7 +45,7 @@ export class ListService {
               this.commonSerivce.invalidInput();
               return;
             } else {
-              const newItem = new Item(this.shoppingService.getUser(), newName, newAmount);
+              const newItem = new Item(newName, newAmount);
               this.shoppingService.addItem(newItem);
             }
           }
