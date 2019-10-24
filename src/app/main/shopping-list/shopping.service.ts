@@ -4,7 +4,6 @@ import { BehaviorSubject, of, Subject } from 'rxjs';
 // import { take, map, tap, delay, switchMap } from 'rxjs/operators';
 
 import { Item } from './item.model';
-import { userInfo } from 'os';
 import { User } from '../../auth/user.model';
 // import { AuthService } from '../../auth/auth.service';
 // import { ItemData } from './itemData.model';
@@ -30,7 +29,6 @@ export class ShoppingService {
 
   addItem(newItem: Item) {
     const item = new Item(
-      this.getUser(),
       newItem.name,
       newItem.amount
     );

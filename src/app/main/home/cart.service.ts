@@ -30,7 +30,7 @@ export class CartService {
     return this.totalPrice;
   }
 
-  addItem(item: Item) {
+  addItem(item: CartItem) {
     this.cartList.push(item);
     this.cartListUpdated.next(this.cartList);
     this.getPrice();
