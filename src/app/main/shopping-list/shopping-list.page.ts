@@ -32,7 +32,6 @@ export class ShoppingListPage implements OnInit, OnDestroy {
     this.commonService.clearList('shopping-list');
   }
   ngOnInit() {
-    this.shoppingService.getUser();
     this.list = this.shoppingService.getList();
     this.itemListSub = this.shoppingService.getListUpdateListener()
       .subscribe(

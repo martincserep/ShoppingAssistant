@@ -4,7 +4,6 @@ import { BehaviorSubject, of, Subject } from 'rxjs';
 // import { take, map, tap, delay, switchMap } from 'rxjs/operators';
 
 import { Item } from './item.model';
-import { User } from '../../auth/user.model';
 // import { AuthService } from '../../auth/auth.service';
 // import { ItemData } from './itemData.model';
 // import { constructor } from 'stream';
@@ -22,10 +21,6 @@ export class ShoppingService {
     return [...this.list];
   }
 
-  getUser() {
-    const user = JSON.parse(localStorage.getItem('_cap_authData'));
-    return user.userId;
-  }
 
   addItem(newItem: Item) {
     const item = new Item(
